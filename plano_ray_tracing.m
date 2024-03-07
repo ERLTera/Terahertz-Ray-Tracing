@@ -1,24 +1,43 @@
-function[theta3,y2,sag] = plano_ray_tracing(y1,thetaIn,z2,n1,n2,n3,radius)
+function[theta3,y2,y1TRUE,sag] = plano_ray_tracing(theta1,z1,z2,n1,n2,n3,radius)
 
+%Initial heights without sag
+y1 = (z1)*tan(theta1);
 
 %Sag values
 sag = radius - sqrt((radius.^2)-(y1.^2));
 
+%Initial heights with sag
+
+for x = 1:max(size(y1))
+    if y1(x) >0
+        y1TRUE = y1 + sag.*tan(theta1);
+    else
+        y1TRUE = y1 - sag.*tan(theta1);
+    end
+end
+
+
 %Phi 1, angle normal to curve
-phi1 = asin(y1/radius);
+phi1 = asin(y1TRUE/radius);
 
-theta1 = phi1+thetaIn;
+%Phi prime, angle into sphere normal from curve
+phiPrime = asin((n1*sin(phi1))/n2);
 
-%Snell's law to find angle from normal within lens
-theta2  = asin((n1*sin(theta1))/n2);
+%Theta 2, angle into sphere from horizontal and angle that hits flat edge
+theta2 = phiPrime - phi1;
 
-%Phi 2, angle from horizontal
-phi2 = theta2 - phi1;
+%Height once hits flat surface
 
-%difference in height from y1 to y2
-ydiff = tan(phi2).*(z2-sag);
-%Height at the flat side of the lens
-y2 = y1 + ydiff;
+for x = 1:max(size(y1TRUE))
+    if y1TRUE(x) >0
+        y2 = y1TRUE - ((z2-sag)/(tan(theta2)));
+    else
+        y2 = y1TRUE + ((z2-sag)/(tan(theta2)));
+    end
+end
 
-%Snell's law to get output angles from horizontal
-theta3  = asin((n2*sin(phi2))/n3);
+
+%Snell's law to find angle out of flat edge
+theta3 = asin((n2*sin(theta2))/(n3));
+
+%%NOT FULLY FUNCTIONAL
