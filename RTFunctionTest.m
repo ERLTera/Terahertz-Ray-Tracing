@@ -7,11 +7,11 @@ clc
 %%FIRST LENS ThorLabs AL125
 
 thetaLimit = 0.9; %(about 45 degrees)         %upper angle limit
-z1 = 30.84;                                       %distance from emitter to curve peak (used lensmakers equation to find)
+z1 = 30.84;                                   %distance from emitter to curve peak (used lensmakers equation to find)
 z2 = 8;                                       %thickness of lens (from curve peak to flat side)
 rays = 101;                                   %number of rays
 n1 = 1;                                       %index of refraction when entering (air)
-n2 = 1.45;                                   %index of refraction when inside (lens)
+n2 = 1.45;                                    %index of refraction when inside (lens)
 n3 = 1;                                       %index of refraction when leaving (air)
 radius = 13.878;                              %rad of curvature
 aspheric = 1;                                 %if lens is aspheric (1 for aspheric, else for regular plano-convex)
@@ -25,14 +25,13 @@ theta1 = linspace(thetaLimit,-1*thetaLimit,rays);
 
 
 %%SECOND LENS ThorLabs AL115
-
-space = 10;                                          %Distance between flat side of 1st lens and curve point of 2nd lens
-space2 = 44.1498;                               %Distance out of the lens before next lens 
-                         % (used focal length from lensmaker's equation times 2 so that they rays come horizontal out of the third lens)
-z2s = 10;                                              %thickness of lens (from curve peak to flat side)
-n1s = 1;                                              %index of refraction when entering (air)
-n2s = 1.45;                                            %index of refraction when inside (lens)
-n3s = 1;                                              %index of refraction when leaving (air)
+space = 10;                                   %Distance between flat side of 1st lens and curve point of 2nd lens
+space2 = 44.1498;                             %Distance out of the lens before next lens 
+                          % (used focal length from lensmaker's equation times 2 so that they rays come horizontal out of the third lens)
+z2s = 10;                                     %thickness of lens (from curve peak to flat side)
+n1s = 1;                                      %index of refraction when entering (air)
+n2s = 1.45;                                   %index of refraction when inside (lens)
+n3s = 1;                                      %index of refraction when leaving (air)
 radiuss = 9.9337;
 aspherics = 1;
 ks = -0.57635;
@@ -49,17 +48,17 @@ focuss = y2s.*tan(theta3s);
 %THIRD LENS ThorLabs AL125
 
 space2t = 25;
-z2t = 10;                                              %thickness of lens (from curve peak to flat side)
-n1t = 1;                                              %index of refraction when entering (air)
-n2t = 1.45;                                            %index of refraction when inside (lens)
-n3t = 1;                                              %index of refraction when leaving (air)
+z2t = 10;                                       %thickness of lens (from curve peak to flat side)
+n1t = 1;                                        %index of refraction when entering (air)
+n2t = 1.45;                                     %index of refraction when inside (lens)
+n3t = 1;                                        %index of refraction when leaving (air)
 radiust = 13.878;
 aspherict = 1;
 kt = -0.57699;
 
 
 %Initial angles (output angles from previous lens)
- theta1t = theta3s;
+theta1t = theta3s;
 
 [theta3t,y2t,y1TRUEt,sagt] = plano_ray_tracing(theta1t,space2,z2t,n1t,n2t,n3t,radiust,aspherict,kt); 
 

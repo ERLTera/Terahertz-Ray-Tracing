@@ -27,7 +27,6 @@ end
 phi1 = asin(y1TRUE/radius);
 
 %Phi prime, angle into sphere normal from curve
-%phiPrime = asin((n1*sin(phi1))/n2);
 phiPrime = asin((n1*sin(phi1+theta1))/n2);
 
 %Theta 2, angle into sphere from horizontal and angle that hits flat edge
@@ -46,5 +45,3 @@ end
 
 %Snell's law to find angle out of flat edge
 theta3 = asin((n2*sin(theta2))/(n3));
-
-%%NOT FULLY FUNCTIONAL
