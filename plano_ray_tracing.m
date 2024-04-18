@@ -1,10 +1,16 @@
-function[theta3,y2,y1TRUE,sag] = plano_ray_tracing(theta1,z1,z2,n1,n2,n3,radius)
+function[theta3,y2,y1TRUE,sag] = plano_ray_tracing(theta1,z1,z2,n1,n2,n3,radius,aspheric,k)
 
 %Initial heights without sag
 y1 = (z1)*tan(theta1);
 
 %Sag values
-sag = radius - sqrt((radius.^2)-(y1.^2));
+if aspheric == 1
+    %Sag values for regular plano-convex
+    sag = radius - sqrt((radius.^2)-(y1.^2));
+else
+    %Sag values for aspheric lens
+    sag = ((y1).^2)/radius.*(sqrt((1-(1+k).*(y1.^2))/radius^2));
+end
 
 %Initial heights with sag
 
@@ -21,7 +27,8 @@ end
 phi1 = asin(y1TRUE/radius);
 
 %Phi prime, angle into sphere normal from curve
-phiPrime = asin((n1*sin(phi1))/n2);
+%phiPrime = asin((n1*sin(phi1))/n2);
+phiPrime = asin((n1*sin(phi1+theta1))/n2);
 
 %Theta 2, angle into sphere from horizontal and angle that hits flat edge
 theta2 = phiPrime - phi1;
@@ -30,9 +37,9 @@ theta2 = phiPrime - phi1;
 
 for x = 1:max(size(y1TRUE))
     if y1TRUE(x) >0
-        y2 = y1TRUE - ((z2-sag)/(tan(theta2)));
+        y2 = y1TRUE - ((z2-sag).*(tan(theta2)));
     else
-        y2 = y1TRUE + ((z2-sag)/(tan(theta2)));
+        y2 = y1TRUE + ((z2-sag).*(tan(theta2)));
     end
 end
 
