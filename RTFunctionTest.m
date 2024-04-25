@@ -26,8 +26,8 @@ theta1 = linspace(thetaLimit,-1*thetaLimit,rays);
 
 %%SECOND LENS ThorLabs AL115
 space = 10;                                   %Distance between flat side of 1st lens and curve point of 2nd lens
-space2 = 44.1498;                             %Distance out of the lens before next lens 
-                          % (used focal length from lensmaker's equation times 2 so that they rays come horizontal out of the third lens)
+space2 = 22.0749 + 30.84;                     %Distance out of the lens before next lens 
+                                              %(used focal length from lensmaker's equation for 2nd and 3rd lens and added them)
 z2s = 10;                                     %thickness of lens (from curve peak to flat side)
 n1s = 1;                                      %index of refraction when entering (air)
 n2s = 1.45;                                   %index of refraction when inside (lens)
