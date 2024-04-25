@@ -4,9 +4,10 @@ close all
 clear
 clc
 
+%%All distance values are in mm
 %%FIRST LENS ThorLabs AL125
 
-thetaLimit = 0.9; %(about 45 degrees)         %upper angle limit
+thetaLimit = 0.39064; %(22.382 degrees)       %upper angle limit (from distance and lens diameter of 25.4mm)
 z1 = 30.84;                                   %distance from emitter to curve peak (used lensmakers equation to find)
 z2 = 8;                                       %thickness of lens (from curve peak to flat side)
 rays = 101;                                   %number of rays
